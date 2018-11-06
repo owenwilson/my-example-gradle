@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'maven'
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'org.hellojava.HelloWorld'
+    }
+}
+
+mainClassName = 'org.hellojava.HelloWorld'
+
+
+group 'org.apphello'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://IP:8081/repository/maven-snapshots/") {
+                authentication( userName: "user", password: "passadmin")
+            }
+            pom.version = "1.0-SNAPSHOT"
+            pom.artifactId = "apphello"
+            pom.groupId = "org.appgello"
+        }
+    }
+}
